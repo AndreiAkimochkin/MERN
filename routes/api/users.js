@@ -32,20 +32,7 @@ router.post('/', [
         if (user) {
             return res.status(400).json({errors: [{ message: "User already exist"}]});
         }
-        //Get users gravatar
-        const avatar = gravatar.url(email, {
-            s: '200', r: "pg", d: 'mm'
-        })
-            user = new User({
-                name, email, avatar, password
-            })
 
-        //Encrypt password
-        const salt = await bcrypt.genSalt(10);
-
-        user.password = await bcrypt.hash(password, salt)
-
-        await user.save();
 
 
         //Return jsonweboken
@@ -64,7 +51,7 @@ router.post('/', [
                 res.json({token})
             })
     } catch (e) {
-        console.log(e.message);
+        console.e(e.message);
         res.status(500).send('Server error')
     }
 
